@@ -1,0 +1,181 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{ragged2e}
+\usepackage{array}
+\graphicspath{ {images/} }
+\date{}
+
+\begin{document}
+
+% title page
+\begin{titlepage}
+    \begin{center}
+        
+        \Large
+        \textbf{Dayananda Sagar University \\}
+        \large
+        Department of Computer Science \& Engineering \\
+        School of Engineering \\
+        Dayananda Sagar University \\
+        Kudlu Gate, Bangalore - 560068
+        
+        \vspace{0.7cm}
+        \includegraphics[width=3cm]{dsu logo cropped.jpg}
+        
+        \vspace{0.7cm}
+        \Large
+        \textbf{Major Project Report (Phase - 1) \\}
+        \large
+        \textit{on \\}
+        \Large
+        \textbf{Software Effort Estimation Using Machine Learning Techniques \\}
+        \vfill
+        \large
+        VII Semester \\
+        Course Code: (16CS481) \\
+        \vspace{0.7cm}
+        \textbf{Bachelor of Technology \\}
+        \textit{in \\}
+        \textbf{Computer Science \& Engineering \\}
+        \vspace{0.7cm}
+        \textit{Submitted by: \\}
+        \vspace{0.5cm}
+        \begin{tabular}{c c}
+            B P Gayathri Ananya & (ENG17CS0047) \\
+            Bharat Nilam & (ENG17CS0050) \\
+            Chirag P D & (ENG17CS0059)
+        \end{tabular}
+        \vfill
+        
+        \textit{Under the guidance of \\}
+        \textbf{Dr. Shyamsundar Pandeya}
+        
+    \end{center}
+\end{titlepage}
+
+\pagebreak
+
+% certificate
+\begin{center}
+    \Large
+    \textbf{Dayananda Sagar University \\}
+    \large
+    School of Engineering, Kudlu Gate, Bangalore - 560068 \\
+    \vspace{0.7cm}
+    \includegraphics[width=3cm]{dsu logo cropped.jpg}
+        
+    \vspace{0.7cm}
+    \textbf{CERTIFICATE}
+    
+    \normalsize
+    \justify
+    This is to certify that \underline{B P Gayathri Ananya, Bharat Nilam} and \underline{Chirag P D} bearing USNs \underline{ENG17CS0047, ENG17CS0050} and \underline{ENG17CS0059} has satisfactorily completed his/her Major Project (Phase - 1) as prescribed by the University for the 7th Semester B.Tech programme in Computer Science \& Engineering for the Major Project (16CS481) course during the year \underline{2020} at the School of Engineering, Dayananda Sagar University, Bangalore.
+    
+    \vfill
+    \centering
+    \begin{tabular}{c c}
+        Date: & \hspace{2.5in} Signature of Supervisor
+    \end{tabular}
+    
+    \vspace{2cm}
+    \begin{tabular}{|m{5cm}|m{5cm}|}
+    \hline
+         Max Marks & Marks Obtained \\
+    \hline & \\
+         &  \\
+    \hline
+    \end{tabular}
+    
+    \vspace{3cm}
+    Signature of Chairman \\
+    Department of Computer Science \& Engineering
+\end{center}
+
+\pagebreak
+
+% acknowledgment
+\begin{center}
+    \large
+    \textbf{ACKNOWLEDGMENT}
+    
+    \vspace{0.7cm}
+    \normalsize
+    \justify
+    From the very core of our heart, we would like to express our sincere gratitude to \textbf{Dr. Shyamsundar Pandeya} for his invaluable guidance, support, motivation and patience during the
+course of this major project work. We are always indebted to her for her kind support and constant encouragement.
+
+We extend our sincere thanks to our \textbf{Chairman Dr. Sanjay Chitnis} who continuously helped throughout the project and without his guidance, this project would have been an uphill task. 
+
+It requires lots of efforts in terms of cooperation and support to fulfill various tasks involved
+during the project. We are always grateful to our peers and friends who have always encouraged us and guided us whenever we needed assistance.
+\end{center}
+
+\vspace{1in}
+\begin{flushright}
+    \begin{tabular}{c c}
+        B P Gayathri Ananya & (ENG17CS0047) \\
+        Bharat Nilam & (ENG17CS0050) \\
+        Chirag P D & (ENG17CS0059)
+    \end{tabular}
+\end{flushright}
+
+\pagebreak
+
+% table of contents
+\tableofcontents
+
+\pagebreak
+
+\addcontentsline{toc}{section}{Abstract}
+\section*{Abstract}
+In software engineering, the main aim is to develop a high-quality project that fall within
+scheduled time and budget, this procedure is called effort estimation. Effort estimation is
+crucial and important for a company to do because hiring more people than needed will lead to
+loss of income, and hiring less people than needed will lead to delay of project delivery. The
+aim of this study is to estimate software effort objectively by using machine learning techniques
+instead of subjective and time-consuming estimation methods. We would be using decision
+tree. We are using the boosting algorithm to increase the accuracy level of our ensemble model
+which is a combination of SVM, decision tree and GLM, ensemble learning will be tried on
+two public datasets namely Desharnais and Maxwell.
+
+\section{Introduction}
+Successful project is that the system is delivered on time and within budget and with the
+required quality. 
+
+In software development, effort estimation is the process of predicting the most realistic
+amount of effort (expressed in terms of person-hours or money) required to develop or maintain
+software based on incomplete, uncertain and noisy input. 
+
+Software researchers and practitioners have been addressing the problems of effort estimation
+for software development projects since at least the 1960s. 
+
+Most of the research has focused on the construction of formal software effort estimation
+models. The early models were typically based on regression analysis or mathematically
+derived from theories from other domains. Since then a high number of model building
+approaches have been evaluated, such as approaches founded on case-based reasoning,
+classification and regression trees, neural networks, genetic programming etc. 
+
+The most common estimation methods today are the parametric estimation models COCOMO,
+SEER-SEM and SLIM. 
+
+The product/software effort/cost-estimation techniques are applied to predict the effort required
+to finish the project. An incorrect estimation leads to increase in deadline and budget of the
+project which may further consequence to failure of the project. 
+
+Effort estimation is crucial and important for a company to do because hiring more people than
+needed will lead to loss of income, and hiring less people than needed will lead to delay of
+project delivery. 
+
+The estimation models and techniques are used in different phases of software engineering like
+budgeting, risk analysis, planning, etc.
+
+\section{Problem Statement}
+Develop an effective effort estimation model achieving best possible accuracy level,
+optimizing software projects by estimating efforts for the same using machine learning
+techniques.
+
+\end{document}
+
+
