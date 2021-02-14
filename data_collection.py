@@ -11,9 +11,9 @@ import pandas as pd
 data1 = arff.loadarff('maxwell.arff')
 mw = pd.DataFrame(data1[0])
 
-mw.to_csv('maxwell.csv')
-
 data2 = arff.loadarff('desharnais.arff')
 ds = pd.DataFrame(data2[0])
 
-ds.to_csv('desharnais.csv')
+mw.to_csv('maxwell.csv', index = False)
+
+ds.to_csv('desharnais.csv', index = False)

@@ -19,4 +19,6 @@ ds['ManagerExp'].fillna(int(mean_ManagerExp), inplace = True)
 
 #language field
 lang = ds['Language'].apply(lambda x: int(x.replace("b'","").replace("'","")))
+ds['Language'] = lang
 
+ds.to_csv('desharnais_clean.csv', index = False)
