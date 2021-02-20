@@ -54,15 +54,17 @@ np.mean(cross_val_score(lr, X_train, y_train, cv=3, scoring='neg_mean_absolute_e
 #mlp
 from sklearn.neural_network import MLPRegressor
 
-iter = []
-error = []
-for i in range(1500,1800,50):
-    iter.append(i)
-    mlp = MLPRegressor(random_state=1, max_iter=i)
-    error.append(np.mean(cross_val_score(mlp, X_train, y_train, cv=3, scoring='neg_mean_absolute_error')))
-plt.plot(iter,error)
+mlp = MLPRegressor(max_iter=1550)
 
-np.mean(cross_val_score(MLPRegressor(random_state=1, max_iter=1550), X_train, y_train, cv=3, scoring='neg_mean_absolute_error'))
+alpa = []
+error = []
+for i in range(1,100):
+    alpa.append(i)
+    mlp = MLPRegressor(alpha=i, max_iter=1500)
+    error.append(np.mean(cross_val_score(mlp, X_train, y_train, cv=3, scoring='neg_mean_absolute_error')))
+plt.plot(alpa,error)
+
+np.mean(cross_val_score(MLPRegressor(max_iter=1550), X_train, y_train, cv=3, scoring='neg_mean_absolute_error'))
 
 #rf
 from sklearn.ensemble import RandomForestRegressor
@@ -111,5 +113,30 @@ gs_lr.fit(X_train, y_train)
 gs_lr.best_params_
 gs_lr.best_score_
 gs_lr.best_estimator_
+
+#mlp tuning
+mlp_params = {'activation':('identity','relu'), 'solver':('lbfgs','adam'), 'learning_rate':('constant','adaptive'), 'random_state':range(0,42)}
+gs_mlp = GridSearchCV(mlp, mlp_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
+gs_mlp.fit(X_train, y_train)
+gs_mlp.best_params_
+gs_mlp.best_score_
+gs_mlp.best_estimator_
+
+#rf tuning
+rf_params = {'n_estimators':range(1,50,5), 'criterion':['mae'], 'max_features':['sqrt'], 'random_state':range(0,42)}
+gs_rf = GridSearchCV(rf, rf_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
+gs_rf.fit(X_train, y_train)
+gs_rf.best_params_
+gs_rf.best_score_
+gs_rf.best_estimator_
+
+#kn tuning
+kn_params = {'n_neighbors':range(1,42), 'weights':('uniform','distance'), 'algorithm':('auto','ball_tree','kd_tree','brute')}
+gs_kn = GridSearchCV(kn, kn_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
+gs_kn.fit(X_train, y_train)
+gs_kn.best_params_
+gs_kn.best_score_
+gs_kn.best_estimator_
+
 
 #test ensembles
