@@ -115,7 +115,7 @@ gs_lr.best_score_
 gs_lr.best_estimator_
 
 #mlp tuning
-mlp_params = {'activation':('identity','relu'), 'solver':('lbfgs','adam'), 'learning_rate':('constant','adaptive'), 'random_state':range(0,42)}
+mlp_params = {'activation':['relu'], 'solver':('lbfgs','adam'), 'learning_rate':('constant','adaptive'), 'random_state':range(0,42)}
 gs_mlp = GridSearchCV(mlp, mlp_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
 gs_mlp.fit(X_train, y_train)
 gs_mlp.best_params_
@@ -138,5 +138,47 @@ gs_kn.best_params_
 gs_kn.best_score_
 gs_kn.best_estimator_
 
-
 #test ensembles
+tpred_lm = gs_lm.best_estimator_.predict(X_test)
+tpred_svr = gs_svr.best_estimator_.predict(X_test)
+tpred_dt = gs_dt.best_estimator_.predict(X_test)
+tpred_lr = gs_lr.best_estimator_.predict(X_test)
+tpred_mlp = gs_mlp.best_estimator_.predict(X_test)
+tpred_rf = gs_rf.best_estimator_.predict(X_test)
+tpred_kn = gs_kn.best_estimator_.predict(X_test)
+
+from sklearn.metrics import mean_absolute_error
+mean_absolute_error(y_test, tpred_lm)
+mean_absolute_error(y_test, tpred_svr)
+mean_absolute_error(y_test, tpred_dt)
+mean_absolute_error(y_test, tpred_lr)
+mean_absolute_error(y_test, tpred_mlp)
+mean_absolute_error(y_test, tpred_rf)
+mean_absolute_error(y_test, tpred_kn)
+
+#bagging regressor
+from sklearn.ensemble import BaggingRegressor
+br = BaggingRegressor(base_estimator=gs_rf.best_estimator_)
+br_params = {'n_estimators':range(1,50,5), 'random_state':range(0,42)}
+gs_br = GridSearchCV(br, br_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
+gs_br.fit(X_train, y_train)
+gs_br.best_params_
+gs_br.best_score_
+gs_br.best_estimator_
+
+
+#adaboost regressor
+from sklearn.ensemble import AdaBoostRegressor
+abr = AdaBoostRegressor(base_estimator=gs_dt.best_estimator_)
+abr_params = {'n_estimators':range(1,50,5), 'random_state':range(0,42)}
+gs_abr = GridSearchCV(abr, abr_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
+gs_abr.fit(X_train, y_train)
+gs_abr.best_params_
+gs_abr.best_score_
+gs_abr.best_estimator_
+
+tpred_br = gs_br.best_estimator_.predict(X_test)
+tpred_abr = gs_abr.best_estimator_.predict(X_test)
+
+mean_absolute_error(y_test, tpred_br)
+mean_absolute_error(y_test, tpred_abr)
