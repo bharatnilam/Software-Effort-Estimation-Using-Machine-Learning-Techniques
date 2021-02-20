@@ -80,14 +80,36 @@ np.mean(cross_val_score(kn, X_train, y_train, cv=3, scoring='neg_mean_absolute_e
 #tune models gridsearchcv
 from sklearn.model_selection import GridSearchCV
 
+#linear regressor tuning
+lm_params = {'normalize':('True','False')}
+gs_lm = GridSearchCV(lm, lm_params, scoring='neg_mean_absolute_error', cv=3, verbose=2)
+gs_lm.fit(X_train, y_train)
+gs_lm.best_params_
+gs_lm.best_score_
+gs_lm.best_estimator_
+
 #svr tuning
-svr_params = {'kernel':('linear','poly','rbf','sigmoid'), 'degree':range(1,10), 'gamma':('scale','auto'), 'C':range(1,10)}
-gs_svr = GridSearchCV(svr, svr_params, scoring='neg_mean_absolute_error', cv=3)
+svr_params = {'kernel':('linear', 'rbf'), 'gamma':('scale','auto'), 'C':range(1,10)}
+gs_svr = GridSearchCV(svr, svr_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
 gs_svr.fit(X_train, y_train)
+gs_svr.best_params_
+gs_svr.best_score_
+gs_svr.best_estimator_
 
 #decision tree tuning
-dt_params = {'criterion':('mse','friedman_mse','mae','poisson'), 'splitter':('best','random'), 'min_samples_split':range(2,10), 'min_samples_leaf':range(1,10), 'max_features':('auto','sqrt','log2'), 'random_state':range(0,42)}
-gs_dt = GridSearchCV(dt, dt_params, scoring='neg_mean_absolute_error', cv=3)
+dt_params = {'criterion':('mse','mae'), 'splitter':('best','random'), 'min_samples_split':range(2,10), 'min_samples_leaf':range(1,10), 'max_features':('auto','sqrt'), 'random_state':range(30,42)}
+gs_dt = GridSearchCV(dt, dt_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
 gs_dt.fit(X_train, y_train)
+gs_dt.best_params_
+gs_dt.best_score_
+gs_dt.best_estimator_
+
+#lasso tuning
+lr_params = {'normalize':('True','False'), 'max_iter':range(1,10), 'random_state':range(0,42), 'selection':('cyclic','random')}
+gs_lr = GridSearchCV(lr, lr_params, scoring='neg_mean_absolute_error', cv=3, n_jobs=-1, verbose=2)
+gs_lr.fit(X_train, y_train)
+gs_lr.best_params_
+gs_lr.best_score_
+gs_lr.best_estimator_
 
 #test ensembles
