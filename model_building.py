@@ -21,7 +21,7 @@ from sklearn.model_selection import train_test_split
 X = ds_model.drop('Effort', axis=1)
 y = ds_model['Effort']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=22)
 
 #linear regression
 from sklearn.linear_model import LinearRegression
@@ -30,7 +30,7 @@ from sklearn.model_selection import cross_val_score
 lm = LinearRegression()
 lm.fit(X_train, y_train)
 
-np.mean(cross_val_score(lm, X_train, y_train, cv=3, scoring='neg_mean_absolute_error'))
+np.mean(cross_val_score(lm, X_test, y_test, cv=3, scoring='neg_mean_absolute_error'))
 
 print(lm.score(X_test, y_test))
 
@@ -49,7 +49,7 @@ print(gs_svr.score(X_test, y_test))
 
 gs_svr.best_params_
 
-np.mean(cross_val_score(gs_svr, X_train, y_train, cv=3, scoring='neg_mean_absolute_error'))
+np.mean(cross_val_score(gs_svr, X_test, y_test, cv=3))
 
 #tune models gridsearchcv
 #test ensembles
