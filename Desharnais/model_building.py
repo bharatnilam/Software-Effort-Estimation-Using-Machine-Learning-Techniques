@@ -175,3 +175,16 @@ tpred_abr = gs_abr.best_estimator_.predict(X_test)
 
 mean_absolute_error(y_test, tpred_br)
 mean_absolute_error(y_test, tpred_abr)
+
+#pickle
+import pickle
+pickl = {'model': gs_abr.best_estimator_}
+pickle.dump( pickl, open( 'model_file' + ".p", "wb" ) )
+
+file_name = "model_file.p"
+with open(file_name, 'rb') as pickled:
+    data = pickle.load(pickled)
+    model = data['model']
+model.predict(X_test.iloc[1,:].values.reshape(1,-1))
+
+list(X_test.iloc[1,:].values)
