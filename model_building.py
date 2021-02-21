@@ -31,10 +31,11 @@ lm = LinearRegression()
 
 np.mean(cross_val_score(lm, X_train, y_train, cv=3, scoring='neg_mean_absolute_error'))
 
-#support vector
-from sklearn.svm import SVR
 
-svr = SVR()
+#support vector
+from sklearn.svm import LinearSVR
+
+svr = LinearSVR()
 
 np.mean(cross_val_score(svr, X_train, y_train, cv=3, scoring='neg_mean_absolute_error'))
 
@@ -50,22 +51,14 @@ from sklearn import linear_model
 lr = linear_model.Lasso()
 
 np.mean(cross_val_score(lr, X_train, y_train, cv=3, scoring='neg_mean_absolute_error'))
-
+    
 #mlp
 from sklearn.neural_network import MLPRegressor
 
-mlp = MLPRegressor(max_iter=1550)
+mlp = MLPRegressor(max_iter=3220)
 
-alpa = []
-error = []
-for i in range(1,100):
-    alpa.append(i)
-    mlp = MLPRegressor(alpha=i, max_iter=1500)
-    error.append(np.mean(cross_val_score(mlp, X_train, y_train, cv=3, scoring='neg_mean_absolute_error')))
-plt.plot(alpa,error)
-
-np.mean(cross_val_score(MLPRegressor(max_iter=1550), X_train, y_train, cv=3, scoring='neg_mean_absolute_error'))
-
+np.mean(cross_val_score(MLPRegressor(), X_train, y_train, cv=3, scoring='neg_mean_absolute_error'))
+    
 #rf
 from sklearn.ensemble import RandomForestRegressor
 rf = RandomForestRegressor()
@@ -91,7 +84,7 @@ gs_lm.best_score_
 gs_lm.best_estimator_
 
 #svr tuning
-svr_params = {'kernel':('linear', 'rbf'), 'gamma':('scale','auto'), 'C':range(1,10)}
+svr_params = {'loss':('epsilon_insensitive','squared_epsilon_insensitive'), 'random_state':range(0,42), 'max_iter':range(4000,6000,100)}
 gs_svr = GridSearchCV(svr, svr_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
 gs_svr.fit(X_train, y_train)
 gs_svr.best_params_
@@ -99,7 +92,7 @@ gs_svr.best_score_
 gs_svr.best_estimator_
 
 #decision tree tuning
-dt_params = {'criterion':('mse','mae'), 'splitter':('best','random'), 'min_samples_split':range(2,10), 'min_samples_leaf':range(1,10), 'max_features':('auto','sqrt'), 'random_state':range(30,42)}
+dt_params = {'criterion':('mse','mae'), 'splitter':('best','random'), 'max_features':('auto','sqrt','log2'), 'random_state':range(0,42), 'min_samples_split':range(5,10)}
 gs_dt = GridSearchCV(dt, dt_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
 gs_dt.fit(X_train, y_train)
 gs_dt.best_params_
@@ -107,7 +100,7 @@ gs_dt.best_score_
 gs_dt.best_estimator_
 
 #lasso tuning
-lr_params = {'normalize':('True','False'), 'max_iter':range(1,10), 'random_state':range(0,42), 'selection':('cyclic','random')}
+lr_params = {'normalize':('True','False'), 'random_state':range(0,42), 'selection':('cyclic','random')}
 gs_lr = GridSearchCV(lr, lr_params, scoring='neg_mean_absolute_error', cv=3, n_jobs=-1, verbose=2)
 gs_lr.fit(X_train, y_train)
 gs_lr.best_params_
@@ -115,7 +108,7 @@ gs_lr.best_score_
 gs_lr.best_estimator_
 
 #mlp tuning
-mlp_params = {'activation':['relu'], 'solver':('lbfgs','adam'), 'learning_rate':('constant','adaptive'), 'random_state':range(0,42)}
+mlp_params = {'solver':('lbfgs','adam'), 'activation':['relu'], 'random_state':range(0,42,2), 'max_iter':range(2500,3500,100)}
 gs_mlp = GridSearchCV(mlp, mlp_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
 gs_mlp.fit(X_train, y_train)
 gs_mlp.best_params_
@@ -123,7 +116,7 @@ gs_mlp.best_score_
 gs_mlp.best_estimator_
 
 #rf tuning
-rf_params = {'n_estimators':range(1,50,5), 'criterion':['mae'], 'max_features':['sqrt'], 'random_state':range(0,42)}
+rf_params = {'n_estimators':range(15,25), 'criterion':('mae','mse'), 'max_features':('auto','sqrt','log2'), 'random_state':range(0,42,2)}
 gs_rf = GridSearchCV(rf, rf_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
 gs_rf.fit(X_train, y_train)
 gs_rf.best_params_
@@ -131,7 +124,7 @@ gs_rf.best_score_
 gs_rf.best_estimator_
 
 #kn tuning
-kn_params = {'n_neighbors':range(1,42), 'weights':('uniform','distance'), 'algorithm':('auto','ball_tree','kd_tree','brute')}
+kn_params = {'n_neighbors':range(1,36), 'weights':('uniform','distance'), 'algorithm':('auto','ball_tree','kd_tree','brute')}
 gs_kn = GridSearchCV(kn, kn_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
 gs_kn.fit(X_train, y_train)
 gs_kn.best_params_
@@ -159,7 +152,7 @@ mean_absolute_error(y_test, tpred_kn)
 #bagging regressor
 from sklearn.ensemble import BaggingRegressor
 br = BaggingRegressor(base_estimator=gs_rf.best_estimator_)
-br_params = {'n_estimators':range(1,50,5), 'random_state':range(0,42)}
+br_params = {'n_estimators':range(15,25), 'random_state':range(0,42,2)}
 gs_br = GridSearchCV(br, br_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
 gs_br.fit(X_train, y_train)
 gs_br.best_params_
@@ -169,8 +162,8 @@ gs_br.best_estimator_
 
 #adaboost regressor
 from sklearn.ensemble import AdaBoostRegressor
-abr = AdaBoostRegressor(base_estimator=gs_dt.best_estimator_)
-abr_params = {'n_estimators':range(1,50,5), 'random_state':range(0,42)}
+abr = AdaBoostRegressor(base_estimator=gs_mlp.best_estimator_)
+abr_params = {'n_estimators':[52], 'random_state':range(32,42)}
 gs_abr = GridSearchCV(abr, abr_params, scoring='neg_mean_absolute_error', cv=3, verbose=2, n_jobs=-1)
 gs_abr.fit(X_train, y_train)
 gs_abr.best_params_
