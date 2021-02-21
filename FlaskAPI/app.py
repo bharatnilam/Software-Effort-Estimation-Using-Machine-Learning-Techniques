@@ -25,10 +25,12 @@ app = Flask(__name__)\
 
 def predict():
     # stub input features
-    x = np.array(data_in).reshape(1,-1)
+    request_json = request.get_json()
+    x = request_json['input']
+    x_in = np.array(x).reshape(1,-1)
     # load model
     model = load_models()
-    prediction = model.predict(x)[0]
+    prediction = model.predict(x_in)[0]
     response = json.dumps({'response': prediction})
     return response, 200
 
