@@ -187,4 +187,4 @@ with open(file_name, 'rb') as pickled:
     model = data['model']
 model.predict(X_test.iloc[1,:].values.reshape(1,-1))
 
-list(X_test.iloc[1,:].values)
+list(X_test.iloc[2,:].values)
