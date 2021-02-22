@@ -4,10 +4,10 @@ VIII Semester Major Project
 Dayananda Sagar University, Bangalore
 
 ### Desharnais dataset variables summary
-![Desharnais Variables](https://www.researchgate.net/profile/Jianping_Li6/publication/225561017/figure/tbl1/AS:393655585132559@1470866213844/Summary-of-variables-in-Desharnais-dataset.png)
+![Desharnais Variables](Desharnais/desharnais_variables.jpg)
 
 ### Maxwell dataset variables summary
-![Maxwell Variables](https://www.researchgate.net/profile/Vahid_Bardsiri/publication/257939659/figure/tbl1/AS:668220243587098@1536327529847/Maxwell-dataset-details.png)
+![Maxwell Variables](Maxwell/maxwell_variables.jpg)
 
 ### Insights
 Desharnais model features: 'Length', 'Transactions', 'Entities', 'PointsAdjust', 'PointsNonAjust','Effort'
