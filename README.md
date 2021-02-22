@@ -10,17 +10,6 @@ Dayananda Sagar University, Bangalore
 ![Maxwell Variables](Maxwell/maxwell_variables.jpg)
 
 ### Insights
-Desharnais model features: 'Length', 'Transactions', 'Entities', 'PointsAdjust', 'PointsNonAjust','Effort'
-
-Train test split: 0.33
-
-Linear regression score: 0.7629
-
-Linear regression Negative MAE: -2436.7587
-
-SVR score: 0.7198
-
-SVR Negative MAE: -2719.7004 (GridSearchCV tuned)
 
 ### Resources
 http://promise.site.uottawa.ca/SERepository/datasets/desharnais.arff
