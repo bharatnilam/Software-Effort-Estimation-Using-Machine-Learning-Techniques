@@ -4,7 +4,7 @@ VIII Semester Major Project
 Dayananda Sagar University, Bangalore
 
 ### Desharnais dataset variables summary
-![Desharnais Variables](Desharnais/desharnais_variables.jpg)
+![Desharnais Variables](Desharnais/desharnais_variables.JPG)
 
 ### Maxwell dataset variables summary
 ![Maxwell Variables](Maxwell/maxwell_variables.jpg)
